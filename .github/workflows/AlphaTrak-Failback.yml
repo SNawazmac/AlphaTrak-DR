@@ -15,17 +15,17 @@ jobs:
   StorageAccount-Failback:    
       uses: SNawazmac/storage_account_failback/.github/workflows/storage_with_dns_failback.yml@main
       with:
-        storage_account_resource_group_name: ${{vars.STORAGEACCOUNT_RESOURCE_GROUP_NAME}} #changed variable name
-        private_storageaccount_names: ${{vars.STORAGEACCOUNT_NAMES}} 
+        storage_account_resource_group_name: ${{vars.STORAGE_ACCOUNT_RESOURCE_GROUP_NAME}} #changed variable name
+        private_storage_account_names: $${{vars.PRIVATE_STORAGE_ACCOUNT_NAMES}} 
         sku:  ${{vars.STORAGE_SKU}}
         primary_subscription_Id: ${{vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID}}
         #secondary_subscription_Id: ${{vars.SECONDARY_PRIVATE_ENDPOINT_SUBSCRIPTION_ID}}
         #resource_group_name: ${{vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME}} #need to discuss on variable name
         private_dns_zone_resource_group_name: ${{vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME}} # this should be considered not above
         storage_account_private_dns_zone_record_name: ${{vars.STORAGE_ACCOUNT_1_PRIVATE_DNS_ZONE_RECORD_NAME}}
-        storage_account_private_dns_zone_name: ${{vars.PRIVATE_DNS_ZONE_NAME}}
-        storageacprimarypeipnewIP: ${{vars.STORAGE_ACCOUNT_1_PRIMARY_PRIVATE_ENDPOINT_IP}}
-        oldIP: ${{vars.STORAGE_ACCOUNT_1_SECONDARY_PRIVATE_ENDPOINT_IP}}
+        storage_account_private_dns_zone_name: ${{vars.STORAGE_ACCOUNT_PRIVATE_DNS_ZONE_NAME}}
+        storage_account_primary_private_endpoint_IP: ${{vars.STORAGE_ACCOUNT_1_PRIMARY_PRIVATE_ENDPOINT_IP}}
+        storage_account_secondary_private_endpoint_IP: ${{vars.STORAGE_ACCOUNT_1_SECONDARY_PRIVATE_ENDPOINT_IP}}
       secrets:
         AZURE_CREDENTIALS_DELOITTE_SUB : ${{secrets.AZURE_CREDENTIALS_DELOITTE}}
         
@@ -37,9 +37,9 @@ jobs:
         #resource_group_name: ${{vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME}} #need to discuss on variable name
         private_dns_zone_resource_group_name: ${{vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME}} # this should be considered not above
         key_vault_private_dns_zone_record_name: ${{vars.KEY_VAULT_1_PRIVATE_DNS_ZONE_RECORD_NAME}}
-        key_vault_private_dns_zone_name: ${{vars.PRIVATE_DNS_ZONE_NAME}}
-        newIP: ${{vars.KEY_VAULT_1_PRIMARY_PRIVATE_ENDPOINT_IP}}
-        oldIP: ${{vars.KEY_VAULT_1_SECONDARY_PRIVATE_ENDPOINT_IP}}
+        key_vault_private_dns_zone_name: ${{vars.KEY_VAULT_PRIVATE_DNS_ZONE_NAME}}
+        key_vault_primary_private_endpoint_IP: ${{vars.KEY_VAULT_1_PRIMARY_PRIVATE_ENDPOINT_IP}}
+        key_vault_secondary_private_endpoint_IP: ${{vars.KEY_VAULT_1_SECONDARY_PRIVATE_ENDPOINT_IP}}
         
       secrets:
         AZURE_CREDENTIALS_DELOITTE_SUB : ${{secrets.AZURE_CREDENTIALS_DELOITTE}}      
