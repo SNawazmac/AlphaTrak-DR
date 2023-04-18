@@ -1,0 +1,44 @@
+name: Main yaml Failback
+on:
+  workflow_dispatch:
+jobs:
+  SQLServer1-Failover:    
+      uses: SNawazmac/sql_failback/.github/workflows/Invoke_sql_failback.yml@main
+      with:
+        resource_group_name: ${{vars.PRIMARY_MSSQL_SERVER_RESOURCE_GROUP_NAME}} 
+        secondary_server_name: ${{vars.PRIMARY_MSSQL_SERVER_NAME_1}} 
+        secondary_subscription_Id:  ${{vars.PRIMARY_MSSQL_SERVER_SUBSCRIPTION_ID}} 
+        failover_group_name: ${{vars.FAILOVER_GROUP_NAME_1}} 
+      secrets:
+        AZURE_CREDENTIALS_DELOITTE_SUB : ${{secrets.AZURE_CREDENTIALS_DELOITTE}}
+ 
+  StorageAccount-Failover:    
+      uses: SNawazmac/storage_account_failback/.github/workflows/storage_with_dns_failback.yml@main
+      with:
+        storage_account_resource_group_name: ${{vars.STORAGEACCOUNT_RESOURCE_GROUP_NAME}} #changed variable name
+        storageaccount_names: ${{vars.STORAGEACCOUNT_NAMES}} 
+        sku:  ${{vars.STORAGE_SKU}}
+        primary_subscription_Id: ${{vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID}}
+        #secondary_subscription_Id: ${{vars.SECONDARY_PRIVATE_ENDPOINT_SUBSCRIPTION_ID}}
+        resource_group_name: ${{vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME}} #need to discuss on variable name
+        Private_DNS_Zone_resource_group_name: ${{vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME}} # this should be considered not above
+        record_name: ${{vars.STORAGE_ACCOUNT_1_PRIVATE_DNS_ZONE_RECORD_NAME}}
+        newIP: ${{vars.STORAGE_ACCOUNT_1_PRIMARY_PRIVATE_ENDPOINT_IP}}
+        oldIP: ${{vars.STORAGE_ACCOUNT_1_SECONDARY_PRIVATE_ENDPOINT_IP}}
+        zone_name: ${{vars.PRIVATE_DNS_ZONE_NAME}}
+      secrets:
+        AZURE_CREDENTIALS_DELOITTE_SUB : ${{secrets.AZURE_CREDENTIALS_DELOITTE}}
+        
+  Keyvault-DNS-Failover: 
+      uses: SNawazmac/key_vault_dns_failback/.github/workflows/key_vault_with_dns_failback.yml@main
+      with:
+        primary_subscription_Id: ${{vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID}}
+        #secondary_subscription_Id: ${{vars.SECONDARY_PRIVATE_ENDPOINT_SUBSCRIPTION_ID}}
+        resource_group_name: ${{vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME}} #need to discuss on variable name
+        Private_DNS_Zone_resource_group_name: ${{vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME}} # this should be considered not above
+        record_name: ${{vars.KEY_VAULT_1_PRIVATE_DNS_ZONE_RECORD_NAME}}
+        newIP: ${{vars.KEY_VAULT_1_PRIMARY_PRIVATE_ENDPOINT_IP}}
+        oldIP: ${{vars.KEY_VAULT_1_SECONDARY_PRIVATE_ENDPOINT_IP}}
+        zone_name: ${{vars.PRIVATE_DNS_ZONE_NAME}}
+      secrets:
+        AZURE_CREDENTIALS_DELOITTE_SUB : ${{secrets.AZURE_CREDENTIALS_DELOITTE}}      
