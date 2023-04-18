@@ -21,7 +21,7 @@ jobs:
         primary_subscription_Id: ${{vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID}}
         #secondary_subscription_Id: ${{vars.SECONDARY_PRIVATE_ENDPOINT_SUBSCRIPTION_ID}}
         resource_group_name: ${{vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME}} #need to discuss on variable name
-        Private_DNS_Zone_resource_group_name: ${{vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME}} # this should be considered not above
+        private_DNS_Zone_resource_group_name: ${{vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME}} # this should be considered not above
         record_name: ${{vars.STORAGE_ACCOUNT_1_PRIVATE_DNS_ZONE_RECORD_NAME}}
         newIP: ${{vars.STORAGE_ACCOUNT_1_PRIMARY_PRIVATE_ENDPOINT_IP}}
         oldIP: ${{vars.STORAGE_ACCOUNT_1_SECONDARY_PRIVATE_ENDPOINT_IP}}
@@ -35,7 +35,7 @@ jobs:
         primary_subscription_Id: ${{vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID}}
         #secondary_subscription_Id: ${{vars.SECONDARY_PRIVATE_ENDPOINT_SUBSCRIPTION_ID}}
         resource_group_name: ${{vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME}} #need to discuss on variable name
-        Private_DNS_Zone_resource_group_name: ${{vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME}} # this should be considered not above
+        private_DNS_Zone_resource_group_name: ${{vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME}} # this should be considered not above
         record_name: ${{vars.KEY_VAULT_1_PRIVATE_DNS_ZONE_RECORD_NAME}}
         newIP: ${{vars.KEY_VAULT_1_PRIMARY_PRIVATE_ENDPOINT_IP}}
         oldIP: ${{vars.KEY_VAULT_1_SECONDARY_PRIVATE_ENDPOINT_IP}}
