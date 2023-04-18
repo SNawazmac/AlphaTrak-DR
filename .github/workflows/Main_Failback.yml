@@ -2,7 +2,7 @@ name: Main yaml Failback
 on:
   workflow_dispatch:
 jobs:
-  SQLServer1-Failover:    
+  SQLServer1-Failback:    
       uses: SNawazmac/sql_failback/.github/workflows/Invoke_sql_failback.yml@main
       with:
         resource_group_name: ${{vars.PRIMARY_MSSQL_SERVER_RESOURCE_GROUP_NAME}} 
@@ -12,7 +12,7 @@ jobs:
       secrets:
         AZURE_CREDENTIALS_DELOITTE_SUB : ${{secrets.AZURE_CREDENTIALS_DELOITTE}}
  
-  StorageAccount-Failover:    
+  StorageAccount-Failback:    
       uses: SNawazmac/storage_account_failback/.github/workflows/storage_with_dns_failback.yml@main
       with:
         storage_account_resource_group_name: ${{vars.STORAGEACCOUNT_RESOURCE_GROUP_NAME}} #changed variable name
@@ -29,7 +29,7 @@ jobs:
       secrets:
         AZURE_CREDENTIALS_DELOITTE_SUB : ${{secrets.AZURE_CREDENTIALS_DELOITTE}}
         
-  Keyvault-DNS-Failover: 
+  Keyvault-DNS-Failback: 
       uses: SNawazmac/key_vault_dns_failback/.github/workflows/key_vault_with_dns_failback.yml@main
       with:
         primary_subscription_Id: ${{vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID}}
