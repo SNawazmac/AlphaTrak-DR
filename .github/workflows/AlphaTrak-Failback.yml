@@ -1,6 +1,6 @@
 name: Main yaml Failback
 on:
-  workflow_call:
+  workflow_dispatch:
 jobs:
   SQLServer1-Failback:    
       uses: SNawazmac/sql_failback/.github/workflows/Invoke_sql_failback.yml@main
