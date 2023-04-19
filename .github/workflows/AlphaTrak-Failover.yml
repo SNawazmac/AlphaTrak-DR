@@ -15,26 +15,28 @@ jobs:
   StorageAccount-Failover:    
       uses: SNawazmac/storage_account_failover/.github/workflows/storage_with_dns_failover.yml@main
       with:
-        resource_group_name: ${{vars.STORAGEACCOUNT_RESOURCE_GROUP_NAME}}
-        storageaccount_names: ${{vars.STORAGEACCOUNT_NAMES}} 
-        sku:  ${{vars.STORAGE_SKU}}
-        primary_subscription_Id: ${{vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID}}
-        secondary_subscription_Id: ${{vars.SECONDARY_PRIVATE_ENDPOINT_SUBSCRIPTION_ID}}
-        Private_DNS_Zone_resource_group_name: ${{vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME}}
-        secondary_resource_group_name: ${{vars.SECONDARY_PRIVATE_ENDPOINT_RESOURCE_GROUP_NAME}}
-        secondary_private_endpoint_name: ${{vars.SECONDARY_PRIVATE_ENDPOINT_NAME}}
-        zone_name: ${{vars.PRIVATE_DNS_ZONE_NAME}}
-        Private_DNS_Zone_Group_name: ${{vars.PRIVATE_DNS_ZONE_GROUP_NAME}} 
+        storage_account_resource_group_name: ${{ vars.STORAGE_ACCOUNT_RESOURCE_GROUP_NAME }} #changed variable name
+        private_storage_account_names: ${{ vars.PRIVATE_STORAGE_ACCOUNT_NAMES }} 
+        sku:  ${{ vars.STORAGE_SKU }}
+        primary_subscription_Id: ${{ vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID}}
+        #secondary_subscription_Id: ${{vars.SECONDARY_PRIVATE_ENDPOINT_SUBSCRIPTION_ID}}
+        #resource_group_name: ${{vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME}} #need to discuss on variable name
+        secondary_private_endpoint_subscription_Id: ${{ vars.SECONDARY_PRIVATE_ENDPOINT_SUBSCRIPTION_ID }}
+        private_dns_zone_resource_group_name: ${{ vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME }}
+        secondary_private_endpoint_resource_group_name: ${{ vars.SECONDARY_PRIVATE_ENDPOINT_RESOURCE_GROUP_NAME }}
+        secondary_private_endpoint_name: ${{ vars.STORAGE_ACCOUNT_1_SECONDARY_PRIVATE_ENDPOINT_NAME }}
+        storage_account_private_dns_zone_name: ${{ vars.STORAGE_ACCOUNT_PRIVATE_DNS_ZONE_NAME }}
+        storage_account_private_dns_zone_group_name: ${{ vars.STORAGE_ACCOUNT_PRIVATE_DNS_ZONE_GROUP_NAME }}
       secrets:
         AZURE_CREDENTIALS_DELOITTE_SUB : ${{ secrets.AZURE_CREDENTIALS_DELOITTE_SUB }}
         
   Keyvault-DNS-Failover: 
       uses: SNawazmac/key_vault_dns_failover/.github/workflows/key_vault_dns_failover.yml@main
       with:
-        primary_subscription_Id: ${{vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID}}
-        secondary_private_endpoint_subscription_Id: ${{vars.SECONDARY_PRIVATE_ENDPOINT_SUBSCRIPTION_ID}}
-        private_dns_zone_resource_group_name: ${{vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME}}
-        secondary_private_endpoint_resource_group_name: ${{vars.SECONDARY_PRIVATE_ENDPOINT_RESOURCE_GROUP_NAME}}
+        primary_subscription_Id: ${{ vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID }}
+        secondary_private_endpoint_subscription_Id: ${{ vars.SECONDARY_PRIVATE_ENDPOINT_SUBSCRIPTION_ID }}
+        private_dns_zone_resource_group_name: ${{ vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME }}
+        secondary_private_endpoint_resource_group_name: ${{vars.SECONDARY_PRIVATE_ENDPOINT_RESOURCE_GROUP_NAME }}
         secondary_private_endpoint_name: ${{ vars.KEY_VAULT_1_SECONDARY_PRIVATE_ENDPOINT_NAME }}
         key_vault_private_dns_zone_name: ${{ vars.KEY_VAULT_PRIVATE_DNS_ZONE_NAME }}
         key_vault_private_dns_zone_group_name: ${{ vars.KEY_VAULT_PRIVATE_DNS_ZONE_GROUP_NAME }}
