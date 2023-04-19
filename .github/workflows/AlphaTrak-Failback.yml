@@ -16,7 +16,7 @@ jobs:
       uses: SNawazmac/storage_account_failback/.github/workflows/storage_with_dns_failback.yml@main
       with:
         storage_account_resource_group_name: ${{ vars.STORAGE_ACCOUNT_RESOURCE_GROUP_NAME }} #changed variable name
-        private_storage_account_names: $${{ vars.PRIVATE_STORAGE_ACCOUNT_NAMES }} 
+        private_storage_account_names: ${{ vars.PRIVATE_STORAGE_ACCOUNT_NAMES }} 
         sku:  ${{ vars.STORAGE_SKU }}
         primary_subscription_Id: ${{ vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID}}
         #secondary_subscription_Id: ${{vars.SECONDARY_PRIVATE_ENDPOINT_SUBSCRIPTION_ID}}
