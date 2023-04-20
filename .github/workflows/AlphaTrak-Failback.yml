@@ -18,6 +18,9 @@ jobs:
         storage_account_resource_group_name: ${{ vars.STORAGE_ACCOUNT_RESOURCE_GROUP_NAME }} #changed variable name
         private_storage_account_names: ${{ vars.PRIVATE_STORAGE_ACCOUNT_NAMES }} 
         sku:  ${{ vars.STORAGE_SKU }}
+      secrets:
+        AZURE_CREDENTIALS_DELOITTE_SUB : ${{ secrets.AZURE_CREDENTIALS_DELOITTE_SUB }}
+        
   StorageAccount_1_Update_dns_record: 
       uses: SNawazmac/storage_account_failback/.github/workflows/storage_account_dns_failback.yml@main
       with:
