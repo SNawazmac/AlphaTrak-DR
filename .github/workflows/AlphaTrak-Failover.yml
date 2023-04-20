@@ -1,8 +1,8 @@
-name: Main yaml Failover
+name: AlphaTrak-Failover
 on:
   workflow_dispatch:
 jobs:
-  SQLServer1-Failover:    
+  SQLServer1_Failover:    
       uses: SNawazmac/sql_failover/.github/workflows/sql_failover.yml@main
       with:
         secondary_mssql_server_resource_group_name: ${{ vars.SECONDARY_MSSQL_SERVER_RESOURCE_GROUP_NAME }} 
@@ -12,15 +12,18 @@ jobs:
       secrets:
         AZURE_CREDENTIALS_DELOITTE_SUB : ${{ secrets.AZURE_CREDENTIALS_DELOITTE_SUB }} 
  
-  StorageAccount-Failover:    
+  StorageAccount_Invoke_Failover:    
       uses: SNawazmac/storage_account_failover/.github/workflows/storage_with_dns_failover.yml@main
       with:
         storage_account_resource_group_name: ${{ vars.STORAGE_ACCOUNT_RESOURCE_GROUP_NAME }} #changed variable name
         private_storage_account_names: ${{ vars.PRIVATE_STORAGE_ACCOUNT_NAMES }} 
         sku:  ${{ vars.STORAGE_SKU }}
-        primary_subscription_Id: ${{ vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID}}
-        #secondary_subscription_Id: ${{vars.SECONDARY_PRIVATE_ENDPOINT_SUBSCRIPTION_ID}}
-        #resource_group_name: ${{vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME}} #need to discuss on variable name
+        
+  Link_Private_Endpoint_to_DNS:
+      needs: StorageAccount_Invoke_Failover
+      uses:  SNawazmac/storage_account_failover/.github/workflows/storage_with_dns_failover.yml@main
+      with:  
+        private_dns_zone_subscription_Id: ${{ vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID }}
         secondary_private_endpoint_subscription_Id: ${{ vars.SECONDARY_PRIVATE_ENDPOINT_SUBSCRIPTION_ID }}
         private_dns_zone_resource_group_name: ${{ vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME }}
         secondary_private_endpoint_resource_group_name: ${{ vars.SECONDARY_PRIVATE_ENDPOINT_RESOURCE_GROUP_NAME }}
@@ -30,7 +33,7 @@ jobs:
       secrets:
         AZURE_CREDENTIALS_DELOITTE_SUB : ${{ secrets.AZURE_CREDENTIALS_DELOITTE_SUB }}
         
-  Keyvault-DNS-Failover: 
+  Keyvault_DNS_Failover: 
       uses: SNawazmac/key_vault_dns_failover/.github/workflows/key_vault_dns_failover.yml@main
       with:
         primary_subscription_Id: ${{ vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID }}
