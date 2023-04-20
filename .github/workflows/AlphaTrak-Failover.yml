@@ -18,6 +18,8 @@ jobs:
         storage_account_resource_group_name: ${{ vars.STORAGE_ACCOUNT_RESOURCE_GROUP_NAME }} 
         private_storage_account_names: ${{ vars.PRIVATE_STORAGE_ACCOUNT_NAMES }} 
         sku:  ${{ vars.STORAGE_SKU }}
+      secrets:
+        AZURE_CREDENTIALS_DELOITTE_SUB : ${{ secrets.AZURE_CREDENTIALS_DELOITTE_SUB }}
         
   Link_Private_Endpoint_to_DNS:
       needs: StorageAccount_Invoke_Failover
