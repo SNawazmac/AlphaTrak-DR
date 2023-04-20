@@ -21,10 +21,11 @@ jobs:
       secrets:
         AZURE_CREDENTIALS_DELOITTE_SUB : ${{ secrets.AZURE_CREDENTIALS_DELOITTE_SUB }}
         
-  StorageAccount_1_Update_dns_record: 
+  StorageAccount_1_Update_dns_record:
+      needs: StorageAccount_Invoke_Failback
       uses: SNawazmac/storage_account_failback/.github/workflows/storage_account_dns_failback.yml@main
       with:
-        private_dns_zone_subscription_Id: ${{ vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID}}
+        private_dns_zone_subscription_Id: ${{ vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID }}
         private_dns_zone_resource_group_name: ${{ vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME }} # this should be considered not above
         storage_account_private_dns_zone_record_name: ${{ vars.STORAGE_ACCOUNT_1_PRIVATE_DNS_ZONE_RECORD_NAME }}
         storage_account_private_dns_zone_name: ${{ vars.STORAGE_ACCOUNT_PRIVATE_DNS_ZONE_NAME }}
