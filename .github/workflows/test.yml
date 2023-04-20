@@ -1,0 +1,17 @@
+name: test
+on:
+  workflow_dispatch:
+jobs:      
+  StorageAccount_1_Update_dns_record:
+      #needs: StorageAccount_Invoke_Failback
+      uses: SNawazmac/storage_account_failback/.github/workflows/storage_account_dns_failback.yml@main
+      with:
+        private_dns_zone_subscription_Id: ${{ vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID }}
+        private_dns_zone_resource_group_name: ${{ vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME }} # this should be considered not above
+        storage_account_private_dns_zone_record_name: ${{ vars.STORAGE_ACCOUNT_1_PRIVATE_DNS_ZONE_RECORD_NAME }}
+        storage_account_private_dns_zone_name: ${{ vars.STORAGE_ACCOUNT_PRIVATE_DNS_ZONE_NAME }}
+        storage_account_primary_private_endpoint_IP: ${{ vars.STORAGE_ACCOUNT_1_PRIMARY_PRIVATE_ENDPOINT_IP }}
+        storage_account_secondary_private_endpoint_IP: ${{ vars.STORAGE_ACCOUNT_1_SECONDARY_PRIVATE_ENDPOINT_IP }}
+      secrets:
+        AZURE_CREDENTIALS_DELOITTE_SUB : ${{ secrets.AZURE_CREDENTIALS_DELOITTE_SUB }}
+        
