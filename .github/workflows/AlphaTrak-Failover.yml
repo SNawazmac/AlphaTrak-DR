@@ -13,15 +13,15 @@ jobs:
         AZURE_CREDENTIALS_DELOITTE_SUB : ${{ secrets.AZURE_CREDENTIALS_DELOITTE_SUB }} 
  
   StorageAccount_Invoke_Failover:    
-      uses: SNawazmac/storage_account_failover/.github/workflows/storage_with_dns_failover.yml@main
+      uses: SNawazmac/storage_account_failover/.github/workflows/storage_invoke_failover.yml@main
       with:
-        storage_account_resource_group_name: ${{ vars.STORAGE_ACCOUNT_RESOURCE_GROUP_NAME }} #changed variable name
+        storage_account_resource_group_name: ${{ vars.STORAGE_ACCOUNT_RESOURCE_GROUP_NAME }} 
         private_storage_account_names: ${{ vars.PRIVATE_STORAGE_ACCOUNT_NAMES }} 
         sku:  ${{ vars.STORAGE_SKU }}
         
   Link_Private_Endpoint_to_DNS:
       needs: StorageAccount_Invoke_Failover
-      uses:  SNawazmac/storage_account_failover/.github/workflows/storage_with_dns_failover.yml@main
+      uses:  SNawazmac/storage_account_failover/.github/workflows/storageaccount_link_pe_to_dns.yml@main
       with:  
         private_dns_zone_subscription_Id: ${{ vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID }}
         secondary_private_endpoint_subscription_Id: ${{ vars.SECONDARY_PRIVATE_ENDPOINT_SUBSCRIPTION_ID }}
@@ -33,10 +33,10 @@ jobs:
       secrets:
         AZURE_CREDENTIALS_DELOITTE_SUB : ${{ secrets.AZURE_CREDENTIALS_DELOITTE_SUB }}
         
-  Keyvault_DNS_Failover: 
-      uses: SNawazmac/key_vault_dns_failover/.github/workflows/key_vault_dns_failover.yml@main
+  Keyvault_link_pe_to_dns: 
+      uses: SNawazmac/key_vault_dns_failover/.github/workflows/key_vault_link_pe_to_dns.yml@main
       with:
-        primary_subscription_Id: ${{ vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID }}
+        private_dns_zone_subscription_Id: ${{ vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID }}
         secondary_private_endpoint_subscription_Id: ${{ vars.SECONDARY_PRIVATE_ENDPOINT_SUBSCRIPTION_ID }}
         private_dns_zone_resource_group_name: ${{ vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME }}
         secondary_private_endpoint_resource_group_name: ${{ vars.SECONDARY_PRIVATE_ENDPOINT_RESOURCE_GROUP_NAME }}
@@ -44,4 +44,4 @@ jobs:
         key_vault_private_dns_zone_name: ${{ vars.KEY_VAULT_PRIVATE_DNS_ZONE_NAME }}
         key_vault_private_dns_zone_group_name: ${{ vars.KEY_VAULT_PRIVATE_DNS_ZONE_GROUP_NAME }}
       secrets:
-        AZURE_CREDENTIALS_DELOITTE_SUB : ${{ secrets.AZURE_CREDENTIALS_DELOITTE_SUB }}      
+        AZURE_CREDENTIALS_DELOITTE_SUB : ${{ secrets.AZURE_CREDENTIALS_DELOITTE_SUB }}
