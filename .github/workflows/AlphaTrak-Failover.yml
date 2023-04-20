@@ -39,7 +39,7 @@ jobs:
         primary_subscription_Id: ${{ vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID }}
         secondary_private_endpoint_subscription_Id: ${{ vars.SECONDARY_PRIVATE_ENDPOINT_SUBSCRIPTION_ID }}
         private_dns_zone_resource_group_name: ${{ vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME }}
-        secondary_private_endpoint_resource_group_name: ${{vars.SECONDARY_PRIVATE_ENDPOINT_RESOURCE_GROUP_NAME }}
+        secondary_private_endpoint_resource_group_name: ${{ vars.SECONDARY_PRIVATE_ENDPOINT_RESOURCE_GROUP_NAME }}
         secondary_private_endpoint_name: ${{ vars.KEY_VAULT_1_SECONDARY_PRIVATE_ENDPOINT_NAME }}
         key_vault_private_dns_zone_name: ${{ vars.KEY_VAULT_PRIVATE_DNS_ZONE_NAME }}
         key_vault_private_dns_zone_group_name: ${{ vars.KEY_VAULT_PRIVATE_DNS_ZONE_GROUP_NAME }}
