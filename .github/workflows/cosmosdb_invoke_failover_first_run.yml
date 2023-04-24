@@ -12,7 +12,8 @@ jobs:
       secrets:
         AZURE_CREDENTIALS_DELOITTE_SUB : ${{ secrets.AZURE_CREDENTIALS_DELOITTE_SUB }}
         
-  Link_Private_Endpoint_to_DNS:
+ cosmosdb_link_pe_to_dns:
+      needs: Invoke_cosmosdb_failover
       uses:  SNawazmac/cosmosdb_failover/.github/workflows/cosmos_db_link_pe_to_dns.yml@main
       with:  
         private_dns_zone_subscription_Id: ${{ vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID }}
