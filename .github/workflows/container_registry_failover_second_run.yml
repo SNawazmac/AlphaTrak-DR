@@ -17,6 +17,5 @@ jobs:
         container_registry_secondary_endpoint_primary_region_IP: ${{ vars.CONTAINER_REGISTRY_SECONDARY_ENDPOINT_PRIMARY_REGION_IP }}
         container_registry_secondary_endpoint_secondary_region_IP: ${{ vars.CONTAINER_REGISTRY_SECONDARY_ENDPOINT_SECONDARY_REGION_IP }}
         container_registry_private_dns_zone_name: ${{ vars.CONTAINER_REGISTRY_PRIVATE_DNS_ZONE_NAME }}
-        
       secrets:
         AZURE_CREDENTIALS_DELOITTE_SUB : ${{ secrets.AZURE_CREDENTIALS_DELOITTE_SUB }}
