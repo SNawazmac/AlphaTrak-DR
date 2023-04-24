@@ -1,8 +1,8 @@
-name: container_Failback
+name: container_failback
 on:
   workflow_dispatch:
 jobs:
- container_Failback_run:
+ container_failback_run:
       uses:  SNawazmac/container_registry_dns_failback/.github/workflows/container_registry_dns_failback.yml@main
       with:  
         private_dns_zone_subscription_Id: ${{ vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID }}
