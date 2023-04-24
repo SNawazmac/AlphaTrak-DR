@@ -13,6 +13,7 @@ jobs:
         AZURE_CREDENTIALS_DELOITTE_SUB : ${{ secrets.AZURE_CREDENTIALS_DELOITTE_SUB }}
  
  cosmosdb_1_update_dns_record:
+      needs: invoke_cosmosdb_failover
       uses:  SNawazmac/cosmosdb_failover/.github/workflows/cosmosdb_dns_failover.yml@main
       with:  
         private_dns_zone_subscription_Id: ${{ vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID }}
