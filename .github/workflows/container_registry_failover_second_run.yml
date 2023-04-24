@@ -2,7 +2,7 @@ name: container_Failover_second_run
 on:
   workflow_dispatch:
 jobs:
-  Link_Private_Endpoint_to_DNS:
+  container_Failover_second_run:
       uses:  SNawazmac/container_registry_dns_failover/.github/workflows/container_registry_dns_failover.yml@main
       with:  
         private_dns_zone_subscription_Id: ${{ vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID }}
