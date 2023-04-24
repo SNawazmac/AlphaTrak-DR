@@ -2,7 +2,7 @@ name: cosmosdb_failover_first_run
 on:
   workflow_dispatch:
 jobs:
- Invoke_cosmosdb_failover:
+  Invoke_cosmosdb_failover:
       uses:  SNawazmac/cosmosdb_failover/.github/workflows/cosmosdb_invoke_failover.yml@main
       with:  
         cosmosdb_resource_group_name: ${{ vars.COSMOSDB_RESOURCE_GROUP_NAME }}
@@ -12,7 +12,7 @@ jobs:
       secrets:
         AZURE_CREDENTIALS_DELOITTE_SUB : ${{ secrets.AZURE_CREDENTIALS_DELOITTE_SUB }}
         
- cosmosdb_link_pe_to_dns:
+  cosmosdb_link_pe_to_dns:
       needs: Invoke_cosmosdb_failover
       uses:  SNawazmac/cosmosdb_failover/.github/workflows/cosmos_db_link_pe_to_dns.yml@main
       with:  
