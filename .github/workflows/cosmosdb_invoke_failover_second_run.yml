@@ -1,0 +1,32 @@
+name: cosmosdb_failover
+on:
+  workflow_dispatch:
+jobs:
+ invoke_cosmosdb_failover:
+      uses:  SNawazmac/cosmosdb_failover/.github/workflows/cosmosdb_invoke_failover.yml@main
+      with:  
+        cosmosdb_resource_group_name: ${{ vars.COSMOSDB_RESOURCE_GROUP_NAME }}
+        cosmosdb_name: ${{ vars.COSMOSDB_NAME }}
+        cosmosdb_primary_region: ${{ vars.COSMOSDB_PRIMARY_REGION_NAME }}
+        cosmosdb_secondary_region: ${{ vars.COSMOSDB_SECONDARY_REGION_NAME }}
+      secrets:
+        AZURE_CREDENTIALS_DELOITTE_SUB : ${{ secrets.AZURE_CREDENTIALS_DELOITTE_SUB }}
+ 
+ cosmosdb_1_update_dns_record:
+      uses:  SNawazmac/cosmosdb_failover/.github/workflows/cosmosdb_dns_failover.yml@main
+      with:  
+        private_dns_zone_subscription_Id: ${{ vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID }}
+        private_dns_zone_resource_group_name: ${{ vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME }}
+        cosmosdb_private_dns_zone_global_record_name: ${{ vars.COSMOSDB_PRIVATE_DNS_ZONE_GLOBAL_RECORD_NAME }}
+        cosmosdb_private_dns_zone_primary_region_record_name: ${{ vars.COSMOSDB_PRIVATE_DNS_ZONE_PRIMARY_RECORD_NAME }}
+        cosmosdb_private_dns_zone_secondary_region_record_name: ${{ vars.COSMOSDB_PRIVATE_DNS_ZONE_SECONDARY_RECORD_NAME }}
+        cosmosdb_global_endpoint_primary_region_IP: ${{ vars.COSMOSDB_GLOBAL_ENDPOINT_PRIMARY_REGION_IP }}
+        cosmosdb_global_endpoint_secondary_region_IP: ${{ vars.COSMOSDB_GLOBAL_ENDPOINT_SECONDARY_REGION_IP }}
+        cosmosdb_primary_endpoint_primary_region_IP: ${{ vars.COSMOSDB_PRIMARY_ENDPOINT_PRIMARY_REGION_IP }}
+        cosmosdb_primary_endpoint_secondary_region_IP: ${{ vars.COSMOSDB_PRIMARY_ENDPOINT_SECONDARY_REGION_IP }}
+        cosmosdb_secondary_endpoint_primary_region_IP: ${{ vars.COSMOSDB_SECONDARY_ENDPOINT_PRIMARY_REGION_IP }}
+        cosmosdb_secondary_endpoint_secondary_region_IP: ${{ vars.COSMOSDB_SECONDARY_ENDPOINT_SECONDARY_REGION_IP }}
+        cosmosdb_private_dns_zone_name: ${{ vars.COSMOSDB_PRIVATE_DNS_ZONE_NAME }}
+      secrets:
+        AZURE_CREDENTIALS_DELOITTE_SUB : ${{ secrets.AZURE_CREDENTIALS_DELOITTE_SUB }}      
+        
