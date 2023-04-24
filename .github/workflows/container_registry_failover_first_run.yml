@@ -1,0 +1,17 @@
+name: container_registry_failover
+on:
+  workflow_dispatch:
+jobs:
+  Link_Private_Endpoint_to_DNS:
+      needs: container_registry_dns_Failover
+      uses:  SNawazmac/container_registry_dns_failover/.github/workflows/container_registry_link_pe_to_dns.yml@main
+      with:  
+        private_dns_zone_subscription_Id: ${{ vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID }}
+        secondary_private_endpoint_subscription_Id: ${{ vars.SECONDARY_PRIVATE_ENDPOINT_SUBSCRIPTION_ID }}
+        private_dns_zone_resource_group_name: ${{ vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME }}
+        secondary_private_endpoint_resource_group_name: ${{ vars.SECONDARY_PRIVATE_ENDPOINT_RESOURCE_GROUP_NAME }}
+        secondary_private_endpoint_name: ${{ vars.CONTAINER_REGISTRY_1_SECONDARY_PRIVATE_ENDPOINT_NAME }}
+        container_registry_private_dns_zone_name: ${{ vars.CONTAINER_REGISTRY_PRIVATE_DNS_ZONE_NAME }}
+        container_registry_private_dns_zone_group_name: ${{ vars.CONTAINER_REGISTRY_PRIVATE_DNS_ZONE_GROUP_NAME }}
+      secrets:
+        AZURE_CREDENTIALS_DELOITTE_SUB : ${{ secrets.AZURE_CREDENTIALS_DELOITTE_SUB }}
