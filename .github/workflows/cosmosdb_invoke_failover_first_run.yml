@@ -1,4 +1,4 @@
-name: cosmosdb_failover
+name: cosmosdb_failover_first_run
 on:
   workflow_dispatch:
 jobs:
