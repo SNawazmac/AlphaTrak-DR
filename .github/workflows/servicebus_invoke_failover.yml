@@ -1,0 +1,25 @@
+name: servicebus_invoke_failover
+on:
+  workflow_dispatch:
+jobs:
+  servicebus_invoke_failover:    
+      uses: SNawazmac/servicebus_failover/.github/workflows/servicebus_failover_to_secondary.yml@main
+      with:
+        secondary_servicebus_resource_group_name: ${{ vars.SECONDARY_SERVICEBUS_RESOURCE_GROUP_NAME }} 
+        servicebus_aliasname: ${{ vars.SERVICEBUS_ALIASNAME }} 
+        secondary_servicebus_namespace_name:  ${{ vars.SECONDARY_SERVICEBUS_NAMESPACE_NAME }} 
+        subscriptionId_of_secondary_namespace: ${{ vars.SUBSCRIPPTIONID_OF_SECONDARY_NAMESPACE }} 
+      secrets:
+        AZURE_CREDENTIALS_DELOITTE_SUB : ${{ secrets.AZURE_CREDENTIALS_DELOITTE_SUB }}
+        
+  servicebus_geo_recovery_config:
+      needs: servicebus_invoke_failover
+      uses: SNawazmac/servicebus_geo_recovery_config/.github/workflows/service_bus_geo_recovery_config.yml@main
+      with:
+        primary_servicebus_resource_group_name: ${{ vars.PRIMARY_SERVICEBUS_RESOURCE_GROUP_NAME }} 
+        servicebus_aliasname: ${{ vars.SERVICEBUS_ALIASNAME }} 
+        primary_servicebus_namespace_name:  ${{ vars.PRIMARY_SERVICEBUS_NAMESPACE_NAME }} 
+        secondary_servicebus_namespaceId: ${{ vars.SECONDARY_SERVICEBUS_NAMESPACEID }} 
+        primary_subscription_Id: ${{ vars.PRIMARY_SUBSCRIPTION_ID }}
+      secrets:
+        AZURE_CREDENTIALS_DELOITTE_SUB : ${{ secrets.AZURE_CREDENTIALS_DELOITTE_SUB }}
