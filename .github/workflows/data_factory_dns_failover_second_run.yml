@@ -1,0 +1,16 @@
+name: data_factory_failover_second_run
+on:
+  workflow_dispatch:
+jobs:  
+  data_factory_dns_failover: 
+      uses: SNawazmac/data_factory_dns_failover/.github/workflows/data_factory_with_dns_failover.yml@main
+      with:
+        private_dns_zone_subscription_Id: ${{ vars.PRIVATE_DNS_ZONE_SUBSCRIPTION_ID }}
+        private_dns_zone_resource_group_name: ${{ vars.PRIVATE_DNS_ZONE_RESOURCE_GROUP_NAME }}
+        data_factory_private_dns_zone_record_name: ${{ vars.DATA_FACTORY_1_PRIVATE_DNS_ZONE_RECORD_NAME }}
+        data_factory_private_dns_zone_name: ${{ vars.DATA_FACTORY_PRIVATE_DNS_ZONE_NAME }}
+        data_factory_primary_private_endpoint_IP: ${{ vars.DATA_FACTORY_1_PRIMARY_PRIVATE_ENDPOINT_IP }}
+        data_factory_secondary_private_endpoint_IP: ${{ vars.DATA_FACTORY_1_SECONDARY_PRIVATE_ENDPOINT_IP }}
+        
+      secrets:
+        AZURE_CREDENTIALS_DELOITTE_SUB : ${{ secrets.AZURE_CREDENTIALS_DELOITTE_SUB }}
